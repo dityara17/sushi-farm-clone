@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="css/custom.css">
+    <title>Sushi farm</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent pt-3 pb-3">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="https://app.sushi.com/_next/image?url=%2Flogo.png&w=32&q=75" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Swap</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pool</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Migrate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Farm</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Lend</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li>
+                    <button id="connectWallet">Connect to a wallet</button>
+                </li>
+                <li class="mobile-hide">
+                    <button id="changeLang" class="d-flex flex-row align-items-center">
+                        <span>English </span> <i class="fas fa-caret-down"> </i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container" id="app">
+    <div class="row">
+        <div class="col-md-3 farm-menu d-flex flex-column mobile-hide">
+            <a href="" class="active">All Farm</a>
+            <a href="" class="farm-item">Kashi Farm</a>
+            <a href="" class="farm-item">SushiSwap Farm</a>
+            <a href="" class="farm-item">2x Reward Farm</a>
+        </div>
+        <div class="col-md-9 farm">
+            <div class="search">
+                <form action="#">
+                    <input type="search" v-model="searchQuery"  placeholder="Search by name,symbol,address">
+                    <div class="ico">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                </form>
+            </div>
+            <div class="title-farm mt-3 mb-3 d-flex flex-row">
+                <div>Farms</div>
+                <div class="x-mark"></div>
+            </div>
+            <div class="table-farm">
+                <div class="row table-farm-head mt-3 mb-3">
+                    <div class="col-3 text-left">Pool</div>
+                    <div class="col-3 text-center">TVL</div>
+                    <div class="col-3 text-center mobile-hide">Rewards</div>
+                    <div class="col-3 d-flex justify-content-end">APR</div>
+                </div>
+                <div class="table-farm-body">
+                    <div class="row w-100 box-item" v-if="swaps.swaps" v-for="swap in resultQuery.slice( 0, swapsShow)">
+                        <div class="col-md-3 col-sm-3 col-3 d-flex flex-row farm-coin">
+                            <div class="images d-flex flex-row">
+                                <div class="image">
+                                    <img src="https://res.cloudinary.com/dnz2bkszg/image/fetch/https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/ethereum/assets/0x5BC25f649fc4e26069dDF4cF4010F9f706c23831/logo.png"
+                                         alt="">
+                                </div>
+                                <div class="image">
+                                    <img src="https://res.cloudinary.com/dnz2bkszg/image/fetch/https://raw.githubusercontent.com/sushiswap/icons/master/token/eth.jpg"
+                                         alt="">
+                                </div>
+                            </div>
+                            <div class="coin-name">
+                                <div class="coin-title">{{ swap.pairName }}</div>
+                                <div class="farm-name text-secondary">{{ swap.pairTitle }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-3 farm-item-price text-center text-bold d-flex align-items-center justify-content-center">
+                            {{ "$" + new Intl.NumberFormat().format(swap.TVL)}}
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-3 farm-item-reward text-center d-flex align-items-center justify-content-center flex-row mobile-hide">
+                            <div class="image m-1">
+                                <img src="https://app.sushi.com/_next/image?url=https%3A%2F%2Fraw.githubusercontent.com%2Fsushiswap%2Ficons%2Fmaster%2Ftoken%2Fsushi.jpg&w=32&q=75"
+                                     alt="">
+                            </div>
+                            <div class="farm-per-day">
+                                {{ new Intl.NumberFormat().format(swap.Rewards) }} {{ swap.rewardsTitle }}
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-3 d-flex  flex-column text-right">
+                            <div class="apr-percent justify-content-end">{{ swap.apr.toLocaleString() + "%" }}</div>
+                            <div class="apr-text text-secondary justify-content-end">Annual</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                swaps: {
+                    swaps: []
+                },
+                swapsShow: 15,
+                searchQuery: null
+            }
+        },
+        async mounted() {
+            let swaps = "";
+            await axios
+                .get("https://script.google.com/macros/s/AKfycbwroHgN0YC54Je-yT-Z729112peWYnZ_xf75l8jaHU1Z-edjvT5xYuhyrPj8i8W0CqFdA/exec")
+                .then(response => (swaps = response.data))
+                .catch(error => console.log(error))
+            this.swaps.swaps = swaps.reverse()
+        },
+        computed: {
+            resultQuery(){
+                if(this.searchQuery){
+                    return this.swaps.swaps.filter((item)=>{
+                        return this.searchQuery.toLowerCase().split(' ').every(v => item.pairName.toLowerCase().includes(v))
+                    })
+                }else{
+                    return this.swaps.swaps;
+                }
+            }
+        }
+    })
+
+    // https://script.google.com/macros/s/AKfycbwroHgN0YC54Je-yT-Z729112peWYnZ_xf75l8jaHU1Z-edjvT5xYuhyrPj8i8W0CqFdA/exec
+</script>
+</body>
+</html>

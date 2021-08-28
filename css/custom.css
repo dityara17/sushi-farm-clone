@@ -1,0 +1,315 @@
+
+body, html {
+    font-family: "DM Sans", -apple-system, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;;
+    background-color: #0d0415;
+    color: #bfbfbf;
+}
+
+a {
+    text-decoration: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+}
+
+.farm-menu {
+    position: sticky;
+}
+
+.farm-menu a {
+    width: 85%;
+}
+
+.farm-menu .farm-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    --tw-text-opacity: 1;
+    color: rgba(227, 227, 227, var(--tw-text-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgba(22, 21, 34, var(--tw-bg-opacity));
+    padding: 1.5rem 1rem;
+    --tw-space-y-reverse: 0;
+    margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+    font-weight: 700;
+    border-width: 1px;
+    border-color: transparent;
+    border-radius: .625rem;
+    justify-content: space-between;
+}
+
+.farm-menu .active {
+    position: relative;
+    --tw-text-opacity: 1;
+    color: rgba(227, 227, 227, var(--tw-text-opacity));
+    font-weight: 700;
+    padding-top: 1.5rem;
+    background-color: rgba(22, 21, 34, var(--tw-bg-opacity));
+    padding-bottom: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: .625rem;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    --tw-bg-opacity: 1;
+    color: white;
+
+    border: 2px solid transparent; /*2*/
+}
+
+.farm-menu .active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: .625rem;
+    padding: 2px;
+    background: linear-gradient(90deg, #27b0e6, #fa52a0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+}
+
+main {
+    padding-top: 20px;
+}
+
+main .search {
+    --tw-bg-opacity: 1;
+    background-color: rgba(22, 21, 34, var(--tw-bg-opacity));
+    border-radius: .625rem;
+    width: 100%;
+    position: relative;
+}
+
+main .search .ico{
+    position: absolute;
+    right: 20px;
+    top: 25%;
+}
+
+main .search input:focus {
+    border: 2px solid transparent;
+    background: linear-gradient(
+            90deg, #161522, #161522), linear-gradient(
+            90deg, #27b0e6, #fa52a0);
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+}
+
+
+main .search input {
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: .875rem 1.5rem;
+    background-color: transparent;
+    border-color: transparent;
+    border-width: 2px;
+    border-radius: .625rem;
+    position: relative;
+    width: 100%;
+    outline: 0;
+}
+
+
+.table-farm-body .box-item {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    margin: 0 0 0.4em;
+    padding: 1.5rem 1rem;
+    --tw-bg-opacity: 1;
+    background-color: rgba(22, 21, 34, var(--tw-bg-opacity));
+    border-radius: .625rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    color: rgba(191, 191, 191, 1);
+}
+
+
+.text-secondary {
+    --tw-text-opacity: 1;
+    color: rgba(127, 127, 127, var(--tw-text-opacity));
+}
+
+.coin-title, .apr-percent {
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+}
+
+.farm-name, .apr-text {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.farm-item-reward .image img {
+    border-radius: .625rem;
+}
+
+.farm-per-day {
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+
+.farm-coin .images {
+    margin-right: 7px;
+}
+
+.farm-coin .images .image {
+    overflow: hidden;
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: .625rem;
+    margin: 5px;
+}
+
+.farm-coin .images .image img {
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    filter: none;
+    background-size: cover;
+    background-image: none;
+}
+
+.table-farm-head {
+    font-weight: 600;
+}
+
+.title-farm {
+    font-weight: 600;
+    position: relative;
+    flex: 1;
+}
+
+.x-mark {
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #27b0e6, #fa52a0);
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 12px;
+}
+
+.navbar-light .navbar-brand {
+    color: rgba(191, 191, 191, 1);
+}
+
+nav {
+    background: linear-gradient(
+            90deg, rgba(39, 176, 230, .2) 0, rgba(250, 82, 160, .2)) 0 100% no-repeat;
+    background-size: 100% 1px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(191, 191, 191, 1);
+    font-size: 1rem;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: white;
+}
+
+.navbar-light .navbar-toggle {
+    color: rgba(191, 191, 191, 1);
+    border-color: transparent;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+#connectWallet {
+    --tw-bg-opacity: 0.2;
+    background-color: rgba(46, 51, 72, var(--tw-bg-opacity));
+    padding: 6px 1rem;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    border-radius: .625rem;
+    color: inherit;
+    cursor: pointer;
+    margin: 0 5px 0 0;
+    outline: none;
+    border: 0;
+}
+
+#changeLang {
+    padding: 6px 1rem;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    border-radius: .625rem;
+    color: inherit;
+    border-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: rgba(32, 34, 49, var(--tw-border-opacity));
+    background: transparent;
+    justify-content: center;
+    display: inline-flex;
+    outline: none;
+}
+
+@media (max-width: 456px) {
+    .mobile-hide{
+        display: none !important;
+    }
+    .table-farm-body .box-item{
+        padding: 1rem 0;
+    }
+    .farm-coin{
+        flex-direction: column;
+        width: 50% !important;
+    }
+    .coin-title, .apr-percent{
+        font-size: 14px;
+        line-height:0.7em;
+    }
+    .table-farm-head .col-3{
+        width: 33.33%;
+    }
+}
