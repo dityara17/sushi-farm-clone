@@ -21,119 +21,155 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-transparent pt-3 pb-3">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="https://app.sushi.com/_next/image?url=%2Flogo.png&w=32&q=75" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Swap</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pool</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Migrate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Farm</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Lend</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li>
-                    <button id="connectWallet">Connect to a wallet</button>
-                </li>
-                <li class="mobile-hide">
-                    <button id="changeLang" class="d-flex flex-row align-items-center">
-                        <span>English </span> <i class="fas fa-caret-down"> </i>
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="app" id="app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent pt-3 pb-3">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://app.sushi.com/_next/image?url=%2Flogo.png&w=32&q=75" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Swap</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pool</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Migrate</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Farm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Lend</a>
+                    </li>
+                </ul>
+                <ul v-if="metaMask"
+                    class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-end flex-grow-1 meta-stack-groups"
+                    style="padding-right: 7px">
 
-<main class="container" id="app">
-    <div class="row">
-        <div class="col-md-3 farm-menu d-flex flex-column mobile-hide">
-            <a href="" class="active">All Farm</a>
-            <a href="" class="farm-item">Kashi Farm</a>
-            <a href="" class="farm-item">SushiSwap Farm</a>
-            <a href="" class="farm-item">2x Reward Farm</a>
-        </div>
-        <div class="col-md-9 farm">
-            <div class="search">
-                <form action="#">
-                    <input type="search" v-model="searchQuery"  placeholder="Search by name,symbol,address">
-                    <div class="ico">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </div>
-                </form>
-            </div>
-            <div class="title-farm mt-3 mb-3 d-flex flex-row">
-                <div>Farms</div>
-                <div class="x-mark"></div>
-            </div>
-            <div class="table-farm">
-                <div class="row table-farm-head mt-3 mb-3">
-                    <div class="col-3 text-left">Pool</div>
-                    <div class="col-3 text-center">TVL</div>
-                    <div class="col-3 text-center mobile-hide">Rewards</div>
-                    <div class="col-3 d-flex justify-content-end">APR</div>
-                </div>
-                <div class="table-farm-body">
-                    <div class="row w-100 box-item" v-if="swaps.swaps" v-for="swap in resultQuery.slice( 0, swapsShow)">
-                        <div class="col-md-3 col-sm-3 col-3 d-flex flex-row farm-coin">
-                            <div class="images d-flex flex-row">
-                                <div class="image">
-                                    <img src="https://res.cloudinary.com/dnz2bkszg/image/fetch/https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/ethereum/assets/0x5BC25f649fc4e26069dDF4cF4010F9f706c23831/logo.png"
-                                         alt="">
-                                </div>
-                                <div class="image">
-                                    <img src="https://res.cloudinary.com/dnz2bkszg/image/fetch/https://raw.githubusercontent.com/sushiswap/icons/master/token/eth.jpg"
-                                         alt="">
-                                </div>
-                            </div>
-                            <div class="coin-name">
-                                <div class="coin-title">{{ swap.pairName }}</div>
-                                <div class="farm-name text-secondary">{{ swap.pairTitle }}</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-3 farm-item-price text-center text-bold d-flex align-items-center justify-content-center">
-                            {{ "$" + new Intl.NumberFormat().format(swap.TVL)}}
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-3 farm-item-reward text-center d-flex align-items-center justify-content-center flex-row mobile-hide">
-                            <div class="image m-1">
-                                <img src="https://app.sushi.com/_next/image?url=https%3A%2F%2Fraw.githubusercontent.com%2Fsushiswap%2Ficons%2Fmaster%2Ftoken%2Fsushi.jpg&w=32&q=75"
-                                     alt="">
-                            </div>
-                            <div class="farm-per-day">
-                                {{ new Intl.NumberFormat().format(swap.Rewards) }} {{ swap.rewardsTitle }}
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-3 d-flex  flex-column text-right">
-                            <div class="apr-percent justify-content-end">{{ swap.apr.toLocaleString() + "%" }}</div>
-                            <div class="apr-text text-secondary justify-content-end">Annual</div>
-                        </div>
-                    </div>
-                </div>
+                    <li style="">
+                        <button title="Add Team to your MetaMask wallet" class="" v-on:click="connectTeam">
+                            <img src="https://raw.githubusercontent.com/Team-Exchange/icons/master/TE_SMALL.png"
+                                 alt="">
+                        </button>
+                    </li>
+                    <li style="">
+                        <button title="Add AXS to your MetaMask wallet" v-on:click="connectAXS">
+                            <img src="https://etherscan.io/token/images/axieinfinityshard_32.png"
+                                 alt="">
+                        </button>
+                    </li>
+                    <li style="">
+                        <button title="Add SLP to your MetaMask wallet" v-on:click="connectSLP">
+                            <img src="https://etherscan.io/token/images/slp_32.png"
+                                 alt="">
+                        </button>
+                    </li>
+                    <li style="">
+                        <button title="Add Sushi to your MetaMask wallet" v-on:click="connectSushi">
+                            <img src="https://app.sushi.com/_next/image?url=%2Fimages%2Ftokens%2Fsushi-square.jpg&w=48&q=75"
+                                 alt="">
+                        </button>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 flex-grow-0">
+
+                    <li>
+                        <button id="connectWallet">Connect to a wallet</button>
+                    </li>
+                    <li class="mobile-hide">
+                        <button id="changeLang" class="d-flex flex-row align-items-center">
+                            <span>English </span> <i class="fas fa-caret-down"> </i>
+                        </button>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-</main>
+    </nav>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-md-3 farm-menu d-flex flex-column mobile-hide">
+                <a href="" class="active">All Farm</a>
+                <a href="" class="farm-item">Kashi Farm</a>
+                <a href="" class="farm-item">SushiSwap Farm</a>
+                <a href="" class="farm-item">2x Reward Farm</a>
+            </div>
+            <div class="col-md-9 farm">
+                <div class="search">
+                    <form action="#">
+                        <input type="search" v-model="searchQuery" placeholder="Search by name,symbol,address">
+                        <div class="ico">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                    </form>
+                </div>
+                <div class="title-farm mt-3 mb-3 d-flex flex-row">
+                    <div>Farms</div>
+                    <div class="x-mark"></div>
+                </div>
+                <div class="table-farm">
+                    <div class="row table-farm-head mt-3 mb-3">
+                        <div class="col-3 text-left">Pool</div>
+                        <div class="col-3 text-center">TVL</div>
+                        <div class="col-3 text-center mobile-hide">Rewards</div>
+                        <div class="col-3 d-flex justify-content-end">APR</div>
+                    </div>
+                    <div class="table-farm-body">
+                        <div class="row w-100 box-item" v-if="swaps.swaps"
+                             v-for="swap in resultQuery.slice( 0, swapsShow)">
+                            <div class="col-md-3 col-sm-3 col-3 d-flex flex-row farm-coin">
+                                <div class="images d-flex flex-row">
+                                    <div class="image">
+                                        <img src="https://res.cloudinary.com/dnz2bkszg/image/fetch/https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/ethereum/assets/0x5BC25f649fc4e26069dDF4cF4010F9f706c23831/logo.png"
+                                             alt="">
+                                    </div>
+                                    <div class="image">
+                                        <img src="https://res.cloudinary.com/dnz2bkszg/image/fetch/https://raw.githubusercontent.com/sushiswap/icons/master/token/eth.jpg"
+                                             alt="">
+                                    </div>
+                                </div>
+                                <div class="coin-name">
+                                    <div class="coin-title">{{ swap.pairName }}</div>
+                                    <div class="farm-name text-secondary">{{ swap.pairTitle }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-3 farm-item-price text-center text-bold d-flex align-items-center justify-content-center">
+                                {{ "$" + new Intl.NumberFormat().format(swap.TVL)}}
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-3 farm-item-reward text-center d-flex align-items-center justify-content-center flex-row mobile-hide">
+                                <div class="image m-1">
+                                    <img src="https://app.sushi.com/_next/image?url=https%3A%2F%2Fraw.githubusercontent.com%2Fsushiswap%2Ficons%2Fmaster%2Ftoken%2Fsushi.jpg&w=32&q=75"
+                                         alt="">
+                                </div>
+                                <div class="farm-per-day">
+                                    {{ new Intl.NumberFormat().format(swap.Rewards) }} {{ swap.rewardsTitle }}
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-3 d-flex  flex-column text-right">
+                                <div class="apr-percent justify-content-end">{{ swap.apr.toLocaleString() + "%" }}</div>
+                                <div class="apr-text text-secondary justify-content-end">Annual</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
 <script>
     const app = new Vue({
@@ -144,10 +180,12 @@
                     swaps: []
                 },
                 swapsShow: 15,
-                searchQuery: null
+                searchQuery: null,
+                metaMask: checkMetamask(),
             }
         },
         async mounted() {
+
             let swaps = "";
             await axios
                 .get("https://script.google.com/macros/s/AKfycbwroHgN0YC54Je-yT-Z729112peWYnZ_xf75l8jaHU1Z-edjvT5xYuhyrPj8i8W0CqFdA/exec")
@@ -156,17 +194,85 @@
             this.swaps.swaps = swaps.reverse()
         },
         computed: {
-            resultQuery(){
-                if(this.searchQuery){
-                    return this.swaps.swaps.filter((item)=>{
+            resultQuery() {
+                if (this.searchQuery) {
+                    return this.swaps.swaps.filter((item) => {
                         return this.searchQuery.toLowerCase().split(' ').every(v => item.pairName.toLowerCase().includes(v))
                     })
-                }else{
+                } else {
                     return this.swaps.swaps;
                 }
-            }
-        }
+            },
+        },
+        methods: {
+            connectAXS: function (event) {
+                web3.currentProvider.sendAsync({
+                    method: 'metamask_watchAsset',
+                    params: {
+                        "type":"ERC20",
+                        "options":{
+                            "address":"0xbb0e17ef65f82ab018d8edd776e8dd940327b28b",
+                            "symbol":"AXS",
+                            "decimals":18,
+                            "image":'https://etherscan.io/token/images/axieinfinityshard_32.png'
+                        },
+                    },
+                    id: 20,
+                }, console.log)
+            },
+            connectSLP: function (event) {
+                web3.currentProvider.sendAsync({
+                    method: 'metamask_watchAsset',
+                    params: {
+                        "type":"ERC20",
+                        "options":{
+                            "address":"0xCC8Fa225D80b9c7D42F96e9570156c65D6cAAa25",
+                            "symbol":"SLP",
+                            "decimals":18,
+                            "image":'https://etherscan.io/token/images/slp_32.png'
+                        },
+                    },
+                    id: 20,
+                }, console.log)
+            },
+            connectSushi: function (event) {
+                web3.currentProvider.sendAsync({
+                    method: 'metamask_watchAsset',
+                    params: {
+                        "type":"ERC20",
+                        "options":{
+                            "address":"0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
+                            "symbol":"Sushi",
+                            "decimals":18,
+                            "image":'https://app.sushi.com/_next/image?url=%2Fimages%2Ftokens%2Fsushi-square.jpg&w=48&q=75'
+                        },
+                    },
+                    id: 20,
+                }, console.log)
+            },
+            connectTeam: function (event) {
+                web3.currentProvider.sendAsync({
+                    method: 'metamask_watchAsset',
+                    params: {
+                        "type":"ERC20",
+                        "options":{
+                            "address":"0x84f93cc4dc3ebe0e4f80de867916de26ad1ea002",
+                            "symbol":"Team",
+                            "decimals":18,
+                            "image":'https://raw.githubusercontent.com/Team-Exchange/icons/master/TE_SMALL.png'
+                        },
+                    },
+                    id: 20,
+                }, console.log)
+            },
+        },
     })
+
+    function checkMetamask() {
+        return typeof window.ethereum !== 'undefined';
+
+    }
+
 
     // https://script.google.com/macros/s/AKfycbwroHgN0YC54Je-yT-Z729112peWYnZ_xf75l8jaHU1Z-edjvT5xYuhyrPj8i8W0CqFdA/exec
 </script>

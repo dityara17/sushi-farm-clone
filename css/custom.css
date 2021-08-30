@@ -313,3 +313,50 @@ nav {
         width: 33.33%;
     }
 }
+
+.meta-stack-groups button{
+    outline: none;
+    border: 0;
+    margin: 2px 5px;
+    border-radius: .625em;
+    background: transparent;
+}
+.meta-stack-groups button img{
+    border-radius: .625em;
+    border: 1px solid #161522;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.tooltipX{
+    /*display: inline-block;*/
+    position: relative;
+}
+
+.tooltipX:hover:after{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background: #444;
+    border-radius: 8px;
+    color: #fff;
+    content: attr(title);
+    margin: -82px auto 0;
+    font-size: 16px;
+    padding: 13px;
+    width: 220px;
+}
+.tooltipX:hover:before{
+    border: solid;
+    border-color: #444 transparent;
+    border-width: 12px 6px 0 6px;
+    content: "";
+    left: 45%;
+    bottom: 30px;
+    position: absolute;
+}
+
+.hide {
+    visibility: hidden !important;
+}
